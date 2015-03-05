@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="select">Select One</string>
+    <string name="SO">Stack Overflow</string>
+    <string name="Google">Google</string>
 </resources>
