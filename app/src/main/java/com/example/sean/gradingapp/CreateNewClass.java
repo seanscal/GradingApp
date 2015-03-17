@@ -16,8 +16,6 @@ public class CreateNewClass extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        String value = intent.getStringExtra("key"); //if it's a string you stored.
         setContentView(R.layout.create_new);
     }
 
@@ -35,14 +33,14 @@ public class CreateNewClass extends Activity {
 
         myButton.setText(name + " " + semester + " " + year);
 
-
+        setContentView(R.layout.activity_main);
         LinearLayout ll = (LinearLayout)findViewById(R.id.main_screen);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(myButton, lp);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.addView(myButton, layoutParams);
 
         Intent myIntent = new Intent(CreateNewClass.this, MainActivity.class);
-        myIntent
-        CreateNewClass.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 
 }
