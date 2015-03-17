@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_class"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select" />
+
+    <EditText
+        android:id="@+id/class_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ClassName"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/class_semester"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ClassSem"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/class_year"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ClassYear"
+        android:inputType="text" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:autoLink="web"
+        android:layout_width="match_parent"
+        android:id="@+id/button_submit"
+        android:text="@string/Submit"
+        android:linksClickable="true"
+        android:onClick="Submit"/>
+
+</LinearLayout>

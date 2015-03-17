@@ -14,8 +14,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-    public void goToSo (View view) {
-        goToUrl ( "http://stackoverflow.com/");
+    public void goToCreate (View view) {
+        Intent myIntent = new Intent(MainActivity.this, CreateNewClass.class);
+        MainActivity.this.startActivity(myIntent);
     }
 
     public void goToGoogle (View view) {
