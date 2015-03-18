@@ -38,6 +38,6 @@
         android:id="@+id/button_submit"
         android:text="@string/Submit"
         android:linksClickable="true"
-        android:onClick="Submit"/>
+        android:onClick="submit"/>
 
 </LinearLayout>

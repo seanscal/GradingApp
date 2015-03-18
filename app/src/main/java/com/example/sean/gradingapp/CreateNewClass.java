@@ -19,6 +19,10 @@ public class CreateNewClass extends Activity {
         setContentView(R.layout.create_new);
     }
 
+    protected void onResume() {
+        super.onResume();
+    }
+
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     public static int generateViewId() {
@@ -32,10 +36,8 @@ public class CreateNewClass extends Activity {
             }
         }
     }
-    public void Submit (View view) {
+    public void submit (View view) {
         Intent myIntent = new Intent(CreateNewClass.this, MainActivity.class);
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(99999999);
         EditText mEdit   = (EditText)findViewById(R.id.class_name);
         String name = mEdit.getText().toString();
 
@@ -45,23 +47,11 @@ public class CreateNewClass extends Activity {
         mEdit   = (EditText)findViewById(R.id.class_year);
         String year = mEdit.getText().toString();
 
-        Button myButton = new Button(this);
+        String buttonText = name + " " + semester + " " + year;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            myButton.setId(generateViewId());
-        }
-        else {
-            myButton.setId(Button.generateViewId());
-        }
+        myIntent.putExtra("button_text", buttonText);
 
-        myButton.setText(name + " " + semester + " " + year);
-
-        setContentView(R.layout.activity_main);
-        LinearLayout ll = (LinearLayout)findViewById(R.id.main_screen);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(myButton, layoutParams);
-
-        startActivity(myIntent);
+        setResult(Activity.RESULT_OK, myIntent);
+        finish();
     }
 }
