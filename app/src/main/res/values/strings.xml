@@ -10,5 +10,5 @@
     <string name="ClassSem">Semester</string>
     <string name="ClassYear">Year</string>
     <string name="Submit">Submit</string>
-
+    <string name="Delete">Delete Class</string>
 </resources>

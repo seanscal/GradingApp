@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_screen"
+    android:id="@+id/delete_class"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <TextView
+
+    <Spinner
+        android:id="@+id/delete_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select" />
-
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/newClass"
-        android:autoLink="web"
-        android:clickable="true"
-        android:id="@+id/button_su"
-        android:onClick="goToCreate"/>
+        android:spinnerMode="dropdown" />
 
     <Button
         android:layout_height="wrap_content"
         android:clickable="true"
         android:autoLink="web"
         android:layout_width="match_parent"
-        android:id="@+id/button_so"
+        android:id="@+id/button_delete"
         android:text="@string/Delete"
         android:linksClickable="true"
-        android:onClick="goToDelete"/>
+        android:onClick="delete"/>
+
 
 </LinearLayout>

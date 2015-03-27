@@ -36,6 +36,7 @@ public class CreateNewClass extends Activity {
             }
         }
     }
+
     public void submit (View view) {
         Intent myIntent = new Intent(CreateNewClass.this, MainActivity.class);
         EditText mEdit   = (EditText)findViewById(R.id.class_name);

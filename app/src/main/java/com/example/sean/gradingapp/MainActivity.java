@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MainActivity extends Activity {
+    ArrayList<String> names = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,13 @@ public class MainActivity extends Activity {
         MainActivity.this.startActivityForResult(myIntent, 0);
     }
 
-    public void goToGoogle (View view) {
-        goToUrl("http://google.com/");
+    public void goToDelete (View view) {
+        Bundle extra = new Bundle();
+        extra.putSerializable("names", names);
+
+        Intent myIntent = new Intent(MainActivity.this, Delete.class);
+        myIntent.putExtra("extra", extra);
+        MainActivity.this.startActivityForResult(myIntent, 1);
     }
 
     private void goToUrl (String url) {
@@ -53,6 +60,7 @@ public class MainActivity extends Activity {
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //you specified the request code before, when launching the second activity
@@ -60,6 +68,7 @@ public class MainActivity extends Activity {
             if (resultCode == Activity.RESULT_OK) {
                 String buttonText = data.getStringExtra("button_text");
                 if (buttonText != null) {
+                    names.add(buttonText);
                     Button button = new Button(this);
                     button.setText(buttonText);
                     LinearLayout ll = (LinearLayout) findViewById(R.id.main_screen);
@@ -77,7 +86,6 @@ public class MainActivity extends Activity {
                     buttonSet.add(buttonText);
                     prefs.edit().putStringSet("saved_buttons", buttonSet).apply();
                 }
-
             }
         }
     }
