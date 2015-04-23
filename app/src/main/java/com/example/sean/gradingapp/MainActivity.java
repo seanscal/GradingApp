@@ -3,15 +3,16 @@ package com.example.sean.gradingapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class MainActivity extends Activity {
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Set<String> buttonSet = prefs.getStringSet("saved_buttons", null);
         if(buttonSet != null){
@@ -30,7 +32,7 @@ public class MainActivity extends Activity {
                 Button button = new Button(this);
                 button.setText(buttonText);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                        (LinearLayout.LayoutParams.WRAP_CONTENT,
+                        (LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                 ll.addView(button, layoutParams);
             }
@@ -50,19 +52,14 @@ public class MainActivity extends Activity {
         Bundle extra = new Bundle();
         extra.putSerializable("names", names);
 
-        Intent myIntent = new Intent(MainActivity.this, Delete.class);
-        myIntent.putExtra("extra", extra);
-        MainActivity.this.startActivityForResult(myIntent, 1);
-    }
-
-    private void goToUrl (String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
+        Intent newIntent = new Intent(MainActivity.this, Delete.class);
+        newIntent.putExtra("extra", extra);
+        MainActivity.this.startActivityForResult(newIntent, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Set<String> buttonSet = null;
         //you specified the request code before, when launching the second activity
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
@@ -77,13 +74,33 @@ public class MainActivity extends Activity {
                                     LinearLayout.LayoutParams.WRAP_CONTENT);
                     ll.addView(button, layoutParams);
 
-                    //here comes the part that saves the button strings persistently
+                    //saves strings persistantly
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    Set<String> buttonSet = prefs.getStringSet("saved_buttons", null);
+                    buttonSet = prefs.getStringSet("saved_buttons", null);
                     if (buttonSet == null) {
-                        buttonSet = new HashSet<String>();
+                        buttonSet = new HashSet<>();
                     }
                     buttonSet.add(buttonText);
+
+                    prefs.edit().putStringSet("saved_buttons", buttonSet).apply();
+                }
+            }
+        }
+
+        if (requestCode == 1) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            buttonSet = prefs.getStringSet("saved_buttons", null);
+
+            if (resultCode == Activity.RESULT_OK) {
+                String deleted = data.getStringExtra("deletedButton");
+                if (buttonSet != null) {
+                    for (Iterator<String> it = buttonSet.iterator(); it.hasNext(); ) {
+                        String f = it.next();
+                        if (f.equals(deleted))
+                            buttonSet.remove(f);
+                }
+
+                    prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     prefs.edit().putStringSet("saved_buttons", buttonSet).apply();
                 }
             }
